@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="chess:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="df82d08c-7cfc-4fba-9f0e-a35dc22e4f98" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Music/Sound.java" afterDir="false" />
+    <list default="true" id="df82d08c-7cfc-4fba-9f0e-a35dc22e4f98" name="Changes" comment="libing">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/chess_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aa.WAV" beforeDir="false" afterPath="$PROJECT_DIR$/yinxiao/aa.WAV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess/controller/ClickController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/controller/ClickController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess/model/ChessComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/model/ChessComponent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess/view/ChessGameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/view/ChessGameFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chess/view/Chessboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/view/Chessboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ClickController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ClickController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ChessComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ChessComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ChessGameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ChessGameFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Chessboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Chessboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,10 +60,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
   </component>
   <component name="RecentsManager">
@@ -106,6 +105,14 @@
       <option name="presentableId" value="Default" />
       <updated>1651374242470</updated>
     </task>
+    <task id="LOCAL-00001" summary="libing">
+      <created>1653055255839</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1653055255839</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,6 +125,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="libing" />
+    <option name="LAST_COMMIT_MESSAGE" value="libing" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
