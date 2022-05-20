@@ -63,7 +63,7 @@ public class Chessboard extends JComponent {
         return CHESS_SIZE;
     }
 
-//    public boolean isDead = false;
+    //    public boolean isDead = false;
     public boolean isDeadw = false;
     public boolean isDeadb = false;
 
@@ -174,7 +174,7 @@ public class Chessboard extends JComponent {
 //        }
 
 
-            record(row1, col1, row2, col2);
+        record(row1, col1, row2, col2);
         AtomicInteger count = new AtomicInteger(0);
         setN(count);
         setX(0);
@@ -183,18 +183,36 @@ public class Chessboard extends JComponent {
         chess2.repaint();
         String warningw = "Black win!";
         String warningb = "White win!";
-        if(isjiangsi()){
 //            ChessGameFrame.dead(warningw);
+        if(isjiangsi()){
 
         }
         if (isDeadw) {
-            ChessGameFrame.dead(warningw);
+            dead2(warningw);
+            initall();
+            recordchessboard.clear();
+            recordchessboard.add("R0N0B0Q0K0B0N0R0*P0P0P0P0P0P0P0P0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*p0p0p0p0p0p0p0p0*r0n0b0q0k0b0n0r0*w");
+
+            setCurrentColor(ChessColor.BLACK);
+            showwhite();
+            repaint();
+            isDeadw=false;
         }
         else if (isDeadb) {
-            ChessGameFrame.dead(warningb);
+            dead2(warningb);
+            initall();
+            recordchessboard.clear();
+            recordchessboard.add("R0N0B0Q0K0B0N0R0*P0P0P0P0P0P0P0P0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*p0p0p0p0p0p0p0p0*r0n0b0q0k0b0n0r0*w");
+
+            setCurrentColor(ChessColor.BLACK);
+            showwhite();
+            repaint();
+            isDeadb=false;
+
         }
 
     }
+
 
 
     public boolean otherChessCanMoveTo(ChessComponent chess2) {
@@ -272,15 +290,15 @@ public class Chessboard extends JComponent {
 
 //                                    if (!otherChessCanMoveTo(chess) && !kingCanMoveTo(king) && king.getChessColor() == ChessColor.BLACK) {
 //
-                                        return true;
+                                    return true;
 //                                    }
                                 }
-                               else if (chess.getChessColor() != king.getChessColor() && chess.canMoveTo(chessComponents, king.getChessboardPoint()) && king.getChessColor() == ChessColor.WHITE) {
+                                else if (chess.getChessColor() != king.getChessColor() && chess.canMoveTo(chessComponents, king.getChessboardPoint()) && king.getChessColor() == ChessColor.WHITE) {
                                     dead("The white king is in danger!");
 
 //                                    if (!otherChessCanMoveTo(chess) && !kingCanMoveTo(king) && king.getChessColor() == ChessColor.BLACK) {
 //
-                                        return true;
+                                    return true;
 //                                    }
                                 }
 
@@ -600,8 +618,3 @@ public class Chessboard extends JComponent {
         }
     }
 }
-
-
-
-
-

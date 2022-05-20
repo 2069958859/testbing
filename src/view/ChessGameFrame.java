@@ -65,7 +65,7 @@ public class ChessGameFrame extends JFrame {
         addChangeButton();
 //        addLoadButton();
         addPlayMusicButton();
-       // addStopMusicButton();
+        // addStopMusicButton();
         addChongZhiButton();
         addSaveButton();
         addhuiqibutton();
@@ -73,10 +73,8 @@ public class ChessGameFrame extends JFrame {
 
         addFileChooser();
         playback();
-
         changeSkin();
         addBackground();
-
     }
 
     private void addLabel() {
@@ -117,6 +115,7 @@ public class ChessGameFrame extends JFrame {
 
         button1.addActionListener(e -> {
             gameController.getChessboard().initall();
+            recordchessboard.clear();
             recordchessboard.add("R0N0B0Q0K0B0N0R0*P0P0P0P0P0P0P0P0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*p0p0p0p0p0p0p0p0*r0n0b0q0k0b0n0r0*w");
             Chessboard.setCurrentColor(ChessColor.WHITE);
 
@@ -202,8 +201,8 @@ public class ChessGameFrame extends JFrame {
         button10.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button10);
         button10.addActionListener((e) ->{
-           Thread newTry = new Thread(new MyRunable(this));
-           newTry.start();
+            Thread newTry = new Thread(new MyRunable(this));
+            newTry.start();
 
 //           if(currentColor==ChessColor.WHITE){
 //               showwhite();
@@ -212,8 +211,8 @@ public class ChessGameFrame extends JFrame {
 //               showblack();
 //           }
 //           repaint();
-            });
-}
+        });
+    }
 
 //    private void addLoadButton() {
 //
@@ -257,9 +256,23 @@ public class ChessGameFrame extends JFrame {
         im.setOpaque(true);
         add(im);
     }
-    public static void dead(String warning){
+    public  static void dead(String warning){
         JOptionPane j=new JOptionPane();
-        j.showMessageDialog(null,warning);
+        JOptionPane.showMessageDialog(null,warning);
+    }
+    public static boolean isClose;
+
+    public static void dead2(String warning){
+        int result=JOptionPane.showOptionDialog(null,warning,"Next Step",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null,new String[]{"Exit","Restart"},null);
+        if(result==JOptionPane.OK_OPTION){
+            System.exit(0);
+            System.exit(0);
+        }
+//        if(result==0){
+//            isClose=true;
+//        }else if(result==1){
+//            isClose=false;
+//        }
     }
 
     private void changeSkin(){
@@ -426,7 +439,7 @@ public class ChessGameFrame extends JFrame {
 
 
     }
-//    public void removechess() {
+    //    public void removechess() {
 //        for (int i = 0; i < 8; i++) {
 //            for (int j = 0; j < 8; j++) {
 //                if (chessComponent[i][j] != null) {
@@ -457,7 +470,7 @@ public class ChessGameFrame extends JFrame {
 
     }
     public static void nottxt(){
-            loadwrong.setText("Wrong Format");
+        loadwrong.setText("Wrong Format");
     }
 
 
@@ -492,24 +505,17 @@ public class ChessGameFrame extends JFrame {
         button7.setFont(new Font("Rockwell", Font.BOLD, 20));
         button7.setOpaque(true);
         add(button7);
-
         button7.addActionListener(e -> {
             // TODO Auto-generated method stub
-            JFileChooser jfc=new JFileChooser("/Users/wangpinhuang/Desktop/proj");
+            JFileChooser jfc=new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
             jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );
             jfc.showDialog(new JLabel(), "选择");
             file=jfc.getSelectedFile();
             gameController.loadGameFromFile(file.getAbsolutePath());
         });
-        }
-        public void Time(){
-        time();
-        }
+    }
 
     public GameController getGameController() {
         return gameController;
     }
 }
-
-
-

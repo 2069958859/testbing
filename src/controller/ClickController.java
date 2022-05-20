@@ -4,6 +4,10 @@ import Music.Music;
 import model.ChessComponent;
 import view.Chessboard;
 
+import java.io.File;
+
+import static model.ChessComponent.playclick;
+
 public class ClickController {
     private final Chessboard chessboard;
     private ChessComponent first;
@@ -18,7 +22,10 @@ public class ClickController {
             if (handleFirst(chessComponent)) {
                 chessComponent.setSelected(true);
                 first = chessComponent;
+
+                playclick(new File(".\\yinxiao\\aa.wav"));
                 first.repaint();
+
             }
         } else {
             if (first == chessComponent) {

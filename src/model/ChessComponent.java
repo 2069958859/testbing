@@ -1,12 +1,13 @@
 package model;
 
 import Music.Music;
-import sun.audio.AudioPlayer;
 import view.ChessGameFrame;
 import view.ChessboardPoint;
 import controller.ClickController;
 import java.awt.Graphics2D;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -15,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
+import Music.Sound;
 import sun.audio.*;
 /**
  * 这个类是一个抽象类，主要表示8*8棋盘上每个格子的棋子情况，当前有两个子类继承它，分别是EmptySlotComponent(空棋子)和RookChessComponent(车)。
@@ -118,14 +120,22 @@ public abstract class ChessComponent extends JComponent {
         if (e.getID() == MouseEvent.MOUSE_PRESSED) {
             System.out.printf("Click [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
             clickController.onClick(this);
-            try{
-                FileInputStream file=new FileInputStream("aa.wav");
-                AudioStream audioStream=new AudioStream(file);
-                AudioPlayer.player.start(audioStream);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+
+//            Sound hehe=new Sound("aa.WAV");
+//            hehe.start();
         }
+    }
+
+    public static void playclick(File file){
+        try{
+            Clip clip=AudioSystem.getClip();
+            AudioInputStream audioInput=AudioSystem.getAudioInputStream(file);
+            clip.open(audioInput);
+            clip.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     /**
