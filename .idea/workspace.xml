@@ -10,10 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df82d08c-7cfc-4fba-9f0e-a35dc22e4f98" name="Changes" comment="libing">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/chess_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/chess_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ChessGameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ChessGameFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Chessboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Chessboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chess_jar/chess.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chess_jar/chess.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MyRunable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MyRunable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -126,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653056982147</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="libing">
+      <created>1653097231753</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1653097231753</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

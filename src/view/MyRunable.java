@@ -5,8 +5,7 @@ import model.ChessColor;
 import java.awt.*;
 
 import static view.ChessGameFrame.*;
-import static view.Chessboard.getRecordchessboard;
-import static view.Chessboard.setCurrentColor;
+import static view.Chessboard.*;
 
 public class MyRunable implements Runnable {
     public ChessGameFrame chessGameFrame;
@@ -17,8 +16,8 @@ public class MyRunable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < Chessboard.recordchessboard.size(); i++) {
-            chessGameFrame.getGameController().getChessboard().getLastChessBoard(Chessboard.recordchessboard.size() - i);
+        for (int i = 0; i < recordchessboard.size(); i++) {
+            chessGameFrame.getGameController().getChessboard().getLastChessBoard(recordchessboard.size() - i);
             if (Chessboard.getRecordchessboard().get(getRecordchessboard().size() - 1).charAt(Chessboard.getRecordchessboard().get(getRecordchessboard().size() - 1).length() - 1) == 'w') {
                 setCurrentColor(ChessColor.BLACK);
             }
@@ -35,6 +34,8 @@ public class MyRunable implements Runnable {
                 if (Chessboard.getRecordchessboard().get(i).charAt(Chessboard.getRecordchessboard().get(getRecordchessboard().size() - 1).length() - 1) == 'b') {
                     showblack();
                 }
+//                recordchessboard.add("R0N0B0Q0K0B0N0R0*P0P0P0P0P0P0P0P0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*p0p0p0p0p0p0p0p0*r0n0b0q0k0b0n0r0*w");
+
                 chessGameFrame.repaint();
 //                if (Chessboard.getRecordchessboard().get(i).charAt(Chessboard.getRecordchessboard().get(getRecordchessboard().size() - 1).length() - 1) == 'b') {
 //                    showwhite();
