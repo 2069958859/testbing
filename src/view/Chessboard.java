@@ -605,7 +605,7 @@ public class Chessboard extends JComponent {
                     setCurrentColor(ChessColor.WHITE);
                 } else {//无黑白方
                     nonextfang();
-                    initiateEmptyChessboard();
+//                    initiateEmptyChessboard();
                     repaint();
                     break;
 

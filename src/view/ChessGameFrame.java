@@ -462,7 +462,7 @@ public class ChessGameFrame extends JFrame {
 
     }
     public static void nonextfang() {
-        loadwrong.setText("no next player");
+        statusLabel.setText("no next player");
 
     }
     public static void noteight() {
