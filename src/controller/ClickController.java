@@ -33,6 +33,8 @@ public class ClickController {
                 chessComponent.setSelected(false);
                 ChessComponent recordFirst = first;
                 first = null;
+                playclick(new File(".\\yinxiao\\aa.wav"));
+
                 recordFirst.repaint();
             } else if (handleSecond(chessComponent)) {
                 //repaint in swap chess method.
@@ -42,6 +44,8 @@ public class ClickController {
                 chessboard.repaint();
                 first.setSelected(false);
                 first = null;
+                playclick(new File(".\\yinxiao\\aa.wav"));
+
             }
 
         }

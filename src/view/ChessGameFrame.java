@@ -71,6 +71,7 @@ public class ChessGameFrame extends JFrame {
         addhuiqibutton();
         addloadLabel();
 
+
         addFileChooser();
         playback();
         changeSkin();
@@ -203,6 +204,9 @@ public class ChessGameFrame extends JFrame {
         button10.addActionListener((e) ->{
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
+        });
+    }
+
 
 //           if(currentColor==ChessColor.WHITE){
 //               showwhite();
@@ -211,8 +215,6 @@ public class ChessGameFrame extends JFrame {
 //               showblack();
 //           }
 //           repaint();
-        });
-    }
 
 //    private void addLoadButton() {
 //
@@ -227,7 +229,38 @@ public class ChessGameFrame extends JFrame {
 //            gameController.loadGameFromFile(file.getAbsolutePath());
 //        });
 //    }
-
+public void chosen(ChessComponent chessPawn) {
+    JOptionPane jOptionPane = new JOptionPane();
+    String[] options = {"皇后", "战车", "骑士", "主教"};
+    int n = JOptionPane.showOptionDialog(this, "请选择升变类型：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+    int x = chessPawn.getChessboardPoint().getX();
+    int y = chessPawn.getChessboardPoint().getY();
+    ChessColor pawnColor = chessPawn.getChessColor();
+    switch (n) {
+        case 0:
+            gameController.getChessboard().initQueenOnBoard(x, y, pawnColor);
+            break;
+        case 1:
+            gameController.getChessboard().initRookOnBoard(x, y, pawnColor);
+            break;
+        case 2:
+            gameController.getChessboard().initKnightOnBoard(x, y, pawnColor);
+            break;
+        case 3:
+            gameController.getChessboard().initBishopOnBoard(x, y, pawnColor);
+            break;
+    }
+    repaint();
+//    if (gameController.getChessboard().judgeKill(gameController.getChessboard().getChessComponents()[x][y])) {
+//        String color;
+//        if (gameController.getChessboard().getChessComponents()[x][y].getChessColor() == ChessColor.WHITE) {
+//            color = "BLACK";
+//        } else {
+//            color = "WHITE";
+//        }
+//        warning("The " + color + "'s king is in danger.");
+//    }
+}
     private void addPlayMusicButton() {
 
         button5.setLocation(HEIGHT, HEIGHT / 10 + 360);
@@ -365,6 +398,7 @@ public class ChessGameFrame extends JFrame {
         chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE,8,true));
         gameController = new GameController(chessboard);
         chessboard.setBounds(getHEIGHT()/ 10, getHEIGHT()/ 10,getHEIGHT()*4/5,getHEIGHT()*4/5);
+        chessboard.setChessGameFrame(this);
         add(chessboard);
     }
 //

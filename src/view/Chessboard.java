@@ -4,6 +4,7 @@ package view;
 import controller.ClickController;
 import model.*;
 import controller.GameController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLOutput;
@@ -43,7 +44,16 @@ public class Chessboard extends JComponent {
     public static void setX(int x) {
         Chessboard.x = x;
     }
-//     static int huiqicishu=
+
+    private ChessGameFrame chessGameFrame;
+
+    public ChessGameFrame getChessGameFrame() {
+        return chessGameFrame;
+    }
+
+    public void setChessGameFrame(ChessGameFrame chessGameFrame) {
+        this.chessGameFrame = chessGameFrame;
+    }
 
     private static final int CHESSBOARD_SIZE = 8;
 
@@ -142,11 +152,10 @@ public class Chessboard extends JComponent {
         if (!(chess2 instanceof EmptySlotComponent)) {
             remove(chess2);
 
-            if (chess2 instanceof KingChessComponent && chess2.getChessColor().equals(ChessColor.WHITE)){
-                isDeadw=true;
-            }
-            else if (chess2 instanceof KingChessComponent && chess2.getChessColor().equals(ChessColor.BLACK)){
-                isDeadb=true;
+            if (chess2 instanceof KingChessComponent && chess2.getChessColor().equals(ChessColor.WHITE)) {
+                isDeadw = true;
+            } else if (chess2 instanceof KingChessComponent && chess2.getChessColor().equals(ChessColor.BLACK)) {
+                isDeadb = true;
             }
 
 
@@ -173,6 +182,14 @@ public class Chessboard extends JComponent {
 //            staywr = false;
 //        }
 
+        if (chess1 instanceof PawnChessComponent) {
+            if (chess1.getChessColor() == ChessColor.BLACK && chess1.getChessboardPoint().getX() == 7) {
+                getChessGameFrame().chosen(chess1);
+            }
+            if (chess1.getChessColor() == ChessColor.WHITE && chess1.getChessboardPoint().getX() == 0) {
+                getChessGameFrame().chosen(chess1);
+            }
+        }
 
         record(row1, col1, row2, col2);
         AtomicInteger count = new AtomicInteger(0);
@@ -184,7 +201,7 @@ public class Chessboard extends JComponent {
         String warningw = "Black win!";
         String warningb = "White win!";
 //            ChessGameFrame.dead(warningw);
-        if(isjiangsi()){
+        if (isjiangsi()) {
 
         }
         if (isDeadw) {
@@ -196,9 +213,8 @@ public class Chessboard extends JComponent {
             setCurrentColor(ChessColor.BLACK);
             showwhite();
             repaint();
-            isDeadw=false;
-        }
-        else if (isDeadb) {
+            isDeadw = false;
+        } else if (isDeadb) {
             dead2(warningb);
             initall();
             recordchessboard.clear();
@@ -207,13 +223,100 @@ public class Chessboard extends JComponent {
             setCurrentColor(ChessColor.BLACK);
             showwhite();
             repaint();
-            isDeadb=false;
+            isDeadb = false;
 
         }
 
     }
 
 
+    public void changeQ(ChessboardPoint source, ChessComponent chess1) {
+        int row = source.getX();
+        int col = source.getY();
+        if (!(chessComponents[row][col] instanceof PawnChessComponent)) {
+            remove(chessComponents[row][col]);
+            chessComponents[row][col] = chess1;
+        }
+        if (chessComponents[row][col] instanceof PawnChessComponent) {
+            chess1 = chessComponents[row][col];
+            remove(chess1);
+        }
+//        remove(chess1);
+        if (currentColor == ChessColor.BLACK) {
+            add(chess1 = new QueenChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+        if (currentColor == ChessColor.WHITE) {
+            add(chess1 = new QueenChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+    }
+
+    public void changeB(ChessboardPoint source, ChessComponent chess1) {
+        int row = source.getX();
+        int col = source.getY();
+        if (!(chessComponents[row][col] instanceof PawnChessComponent)) {
+            remove(chessComponents[row][col]);
+            chessComponents[row][col] = chess1;
+        }
+        if (chessComponents[row][col] instanceof PawnChessComponent) {
+            chess1 = chessComponents[row][col];
+            remove(chess1);
+        }
+        //remove(chess1);
+        if (currentColor == ChessColor.BLACK) {
+            add(chess1 = new BishopChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+        if (currentColor == ChessColor.WHITE) {
+            add(chess1 = new BishopChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+    }
+
+    public void changeK(ChessboardPoint source, ChessComponent chess1) {
+        int row = source.getX();
+        int col = source.getY();
+        if (!(chessComponents[row][col] instanceof PawnChessComponent)) {
+            remove(chessComponents[row][col]);
+            chessComponents[row][col] = chess1;
+        }
+        if (chessComponents[row][col] instanceof PawnChessComponent) {
+            chess1 = chessComponents[row][col];
+            remove(chess1);
+        }
+//        remove(chess1);
+        if (currentColor == ChessColor.WHITE) {
+            add(chess1 = new KnightChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+        if (currentColor == ChessColor.BLACK) {
+            add(chess1 = new KnightChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+    }
+
+    public void changeR(ChessboardPoint source, ChessComponent chess1) {
+        int row = source.getX();
+        int col = source.getY();
+
+        if (!(chessComponents[row][col] instanceof PawnChessComponent)) {
+            remove(chessComponents[row][col]);
+            chessComponents[row][col] = chess1;
+        }
+        if (chessComponents[row][col] instanceof PawnChessComponent) {
+            chess1 = chessComponents[row][col];
+            remove(chess1);
+        }
+        if (currentColor == ChessColor.WHITE) {
+            add(chess1 = new RookChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+        if (currentColor == ChessColor.BLACK) {
+            add(chess1 = new RookChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, clickController, getCHESS_SIZE()));
+            chess1.repaint();
+        }
+    }
 
     public boolean otherChessCanMoveTo(ChessComponent chess2) {
 
@@ -292,8 +395,7 @@ public class Chessboard extends JComponent {
 //
                                     return true;
 //                                    }
-                                }
-                                else if (chess.getChessColor() != king.getChessColor() && chess.canMoveTo(chessComponents, king.getChessboardPoint()) && king.getChessColor() == ChessColor.WHITE) {
+                                } else if (chess.getChessColor() != king.getChessColor() && chess.canMoveTo(chessComponents, king.getChessboardPoint()) && king.getChessColor() == ChessColor.WHITE) {
                                     dead("The white king is in danger!");
 
 //                                    if (!otherChessCanMoveTo(chess) && !kingCanMoveTo(king) && king.getChessColor() == ChessColor.BLACK) {
@@ -441,31 +543,32 @@ public class Chessboard extends JComponent {
         putChessOnBoard(chessComponent);
     }
 
-    private void initQueenOnBoard(int row, int col, ChessColor color) {
+    public void initQueenOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new QueenChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
+//        chessComponent.chessboard = this;
     }
 
-    private void initBishopOnBoard(int row, int col, ChessColor color) {
+    public void initBishopOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new BishopChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
 
-    private void initKingOnBoard(int row, int col, ChessColor color) {
+    public void initKingOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new KingChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
 
-    private void initKnightOnBoard(int row, int col, ChessColor color) {
+    public void initKnightOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new KnightChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
 
-    private void initPawnOnBoard(int row, int col, ChessColor color) {
+    public void initPawnOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new PawnChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
