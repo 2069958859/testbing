@@ -5,6 +5,7 @@ import controller.ClickController;
 import controller.GameController;
 import model.*;
 import model.ChessComponent;
+
 import javax.swing.JFileChooser;
 import java.io.File;
 import javax.swing.*;
@@ -32,12 +33,12 @@ public class ChessGameFrame extends JFrame {
     protected final int WIDTH;
     protected static int HEIGHT;
     public final int CHESSBOARD_SIZE;
-    private  Chessboard chessboard;
+    private Chessboard chessboard;
     public static boolean isSkin;
     public static boolean isChanged;
     private GameController gameController;
     private final ChessComponent[][] chessComponents = new ChessComponent[8][8];
-    private ClickController clickController=new ClickController(chessboard);
+    private ClickController clickController = new ClickController(chessboard);
     static JLabel statusLabel = new JLabel();
     static JLabel loadwrong = new JLabel();
     static JButton button1 = new JButton("Restart");
@@ -48,9 +49,10 @@ public class ChessGameFrame extends JFrame {
     static JButton button6 = new JButton("Change Skin");
     static JButton button10 = new JButton("Playback");
     JButton button8 = new JButton("repentance");
-    static  JLabel im=new JLabel();
-    static JButton button7=new JButton("open");
+    static JLabel im = new JLabel();
+    static JButton button7 = new JButton("open");
     static File file;
+
     public ChessGameFrame(int width, int height) {
         setTitle("2022 CS102A Project Demo"); //设置标题
         this.WIDTH = width;
@@ -127,9 +129,11 @@ public class ChessGameFrame extends JFrame {
         });
 
     }
+
     public static void setN(AtomicInteger n) {
         ChessGameFrame.n = n;
     }
+
     static AtomicInteger n = new AtomicInteger();
 
     private void addhuiqibutton() {
@@ -185,23 +189,25 @@ public class ChessGameFrame extends JFrame {
         button3.setSize(200, 40);
         button3.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button3);
-        AtomicInteger n= new AtomicInteger();
-        button3.addActionListener((e) ->{
+        AtomicInteger n = new AtomicInteger();
+        button3.addActionListener((e) -> {
             n.getAndIncrement();
-            if(n.get() %2==1){
-                isChanged=true;
+            if (n.get() % 2 == 1) {
+                isChanged = true;
                 this.repaint();
-            } else if(n.get() %2==0){
-                isChanged=false;
+            } else if (n.get() % 2 == 0) {
+                isChanged = false;
                 this.repaint();
-            }});
+            }
+        });
     }
+
     private void playback() {
-        button10.setLocation(HEIGHT, HEIGHT/10+230);
+        button10.setLocation(HEIGHT, HEIGHT / 10 + 230);
         button10.setSize(200, 40);
         button10.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button10);
-        button10.addActionListener((e) ->{
+        button10.addActionListener((e) -> {
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
         });
@@ -216,7 +222,7 @@ public class ChessGameFrame extends JFrame {
 //           }
 //           repaint();
 
-//    private void addLoadButton() {
+    //    private void addLoadButton() {
 //
 //        button4.setLocation(HEIGHT, HEIGHT / 10 + 240);
 //        button4.setSize(200, 40);
@@ -229,38 +235,30 @@ public class ChessGameFrame extends JFrame {
 //            gameController.loadGameFromFile(file.getAbsolutePath());
 //        });
 //    }
-public void chosen(ChessComponent chessPawn) {
-    JOptionPane jOptionPane = new JOptionPane();
-    String[] options = {"皇后", "战车", "骑士", "主教"};
-    int n = JOptionPane.showOptionDialog(this, "请选择升变类型：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-    int x = chessPawn.getChessboardPoint().getX();
-    int y = chessPawn.getChessboardPoint().getY();
-    ChessColor pawnColor = chessPawn.getChessColor();
-    switch (n) {
-        case 0:
+    public void chosen(ChessComponent pawn) {
+        JOptionPane jOptionPane = new JOptionPane();
+        String[] options = {"Queen", "Rook", "Knight", "Bishop"};
+        int n = JOptionPane.showOptionDialog(this, "Choose Type：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int x = pawn.getChessboardPoint().getX();
+        int y = pawn.getChessboardPoint().getY();
+        ChessColor pawnColor = pawn.getChessColor();
+        if (n == 0) {
             gameController.getChessboard().initQueenOnBoard(x, y, pawnColor);
-            break;
-        case 1:
+
+        } else if (n == 1) {
             gameController.getChessboard().initRookOnBoard(x, y, pawnColor);
-            break;
-        case 2:
+
+        } else if (n == 2) {
             gameController.getChessboard().initKnightOnBoard(x, y, pawnColor);
-            break;
-        case 3:
+
+        } else if (n == 3) {
             gameController.getChessboard().initBishopOnBoard(x, y, pawnColor);
-            break;
+
+        }
+
+        repaint();
     }
-    repaint();
-//    if (gameController.getChessboard().judgeKill(gameController.getChessboard().getChessComponents()[x][y])) {
-//        String color;
-//        if (gameController.getChessboard().getChessComponents()[x][y].getChessColor() == ChessColor.WHITE) {
-//            color = "BLACK";
-//        } else {
-//            color = "WHITE";
-//        }
-//        warning("The " + color + "'s king is in danger.");
-//    }
-}
+
     private void addPlayMusicButton() {
 
         button5.setLocation(HEIGHT, HEIGHT / 10 + 360);
@@ -269,35 +267,37 @@ public void chosen(ChessComponent chessPawn) {
         add(button5);
 
         //背景音乐启动
-        AtomicInteger n= new AtomicInteger();
+        AtomicInteger n = new AtomicInteger();
         button5.addActionListener(e -> {
             n.getAndIncrement();
-            if(n.get() %2==1){
-                audioPlayWave1.start();}
-            else if(n.get() %2==0){
+            if (n.get() % 2 == 1) {
+                audioPlayWave1.start();
+            } else if (n.get() % 2 == 0) {
                 audioPlayWave1.stop();
             }
         });
     }
 
-    private void addBackground(){
-        ImageIcon icon=new ImageIcon("./images/img.png");
+    private void addBackground() {
+        ImageIcon icon = new ImageIcon("./images/img.png");
         im.setIcon(icon);
 //        icon.setImage(icon.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
         im.setHorizontalAlignment(SwingConstants.CENTER);
-        im.setSize(WIDTH,HEIGHT);
+        im.setSize(WIDTH, HEIGHT);
         im.setOpaque(true);
         add(im);
     }
-    public  static void dead(String warning){
-        JOptionPane j=new JOptionPane();
-        JOptionPane.showMessageDialog(null,warning);
+
+    public static void dead(String warning) {
+        JOptionPane j = new JOptionPane();
+        JOptionPane.showMessageDialog(null, warning);
     }
+
     public static boolean isClose;
 
-    public static void dead2(String warning){
-        int result=JOptionPane.showOptionDialog(null,warning,"Next Step",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null,new String[]{"Exit","Restart"},null);
-        if(result==JOptionPane.OK_OPTION){
+    public static void dead2(String warning) {
+        int result = JOptionPane.showOptionDialog(null, warning, "Next Step", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Exit", "Restart"}, null);
+        if (result == JOptionPane.OK_OPTION) {
             System.exit(0);
             System.exit(0);
         }
@@ -308,16 +308,16 @@ public void chosen(ChessComponent chessPawn) {
 //        }
     }
 
-    private void changeSkin(){
+    private void changeSkin() {
         button6.setLocation(HEIGHT, HEIGHT / 10 + 420);
         button6.setSize(200, 40);
         button6.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button6);
-        AtomicInteger n= new AtomicInteger();
-        button6.addActionListener((e) ->{
+        AtomicInteger n = new AtomicInteger();
+        button6.addActionListener((e) -> {
             n.getAndIncrement();
-            if(n.get() %2==1){
-                isSkin=true;
+            if (n.get() % 2 == 1) {
+                isSkin = true;
                 this.repaint();
                 statusLabel.setForeground(Color.WHITE);
                 button1.setBackground(Color.green.darker());
@@ -349,17 +349,17 @@ public void chosen(ChessComponent chessPawn) {
                 button10.setBorderPainted(true);
 
 
-                ImageIcon icon2=new ImageIcon("./images/img2.jpg");
+                ImageIcon icon2 = new ImageIcon("./images/img2.jpg");
                 im.setIcon(icon2);
-                icon2.setImage(icon2.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
+                icon2.setImage(icon2.getImage().getScaledInstance(1000, 750, Image.SCALE_DEFAULT));
                 im.setHorizontalAlignment(SwingConstants.CENTER);
-                im.setSize(WIDTH,HEIGHT);
+                im.setSize(WIDTH, HEIGHT);
                 im.setOpaque(true);
                 add(im);
                 this.repaint();
-            } else if(n.get() %2==0){
+            } else if (n.get() % 2 == 0) {
                 statusLabel.setForeground(Color.BLACK);
-                isSkin=false;
+                isSkin = false;
                 button1.setOpaque(false);
                 button1.setBorderPainted(true);
                 button2.setOpaque(false);
@@ -379,25 +379,27 @@ public void chosen(ChessComponent chessPawn) {
                 button10.setOpaque(false);
                 button10.setBorderPainted(true);
 
-                ImageIcon icon=new ImageIcon("./images/img.png");
+                ImageIcon icon = new ImageIcon("./images/img.png");
                 im.setIcon(icon);
 //        icon.setImage(icon.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
                 im.setHorizontalAlignment(SwingConstants.CENTER);
-                im.setSize(WIDTH,HEIGHT);
+                im.setSize(WIDTH, HEIGHT);
                 im.setOpaque(true);
                 add(im);
                 this.repaint();
-            }});
+            }
+        });
 
     }
+
     /**
      * 在游戏面板中添加棋盘
      */
     private void addChessboard() {
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
-        chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE,8,true));
+        chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE, 8, true));
         gameController = new GameController(chessboard);
-        chessboard.setBounds(getHEIGHT()/ 10, getHEIGHT()/ 10,getHEIGHT()*4/5,getHEIGHT()*4/5);
+        chessboard.setBounds(getHEIGHT() / 10, getHEIGHT() / 10, getHEIGHT() * 4 / 5, getHEIGHT() * 4 / 5);
         chessboard.setChessGameFrame(this);
         add(chessboard);
     }
@@ -407,17 +409,12 @@ public void chosen(ChessComponent chessPawn) {
      */
 
 
-
-
-
     /**
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
      */
 
 
-
     Music audioPlayWave1 = new Music("doudizhu.wav");// 开音乐 音樂名
-
 
 
 //    private void addStopMusicButton() {
@@ -432,10 +429,6 @@ public void chosen(ChessComponent chessPawn) {
 //            audioPlayWave1.stop();
 //        });
 //    }
-
-
-
-
 
 
     private void writeFiles(ArrayList<String> transfer) {
@@ -473,6 +466,7 @@ public void chosen(ChessComponent chessPawn) {
 
 
     }
+
     //    public void removechess() {
 //        for (int i = 0; i < 8; i++) {
 //            for (int j = 0; j < 8; j++) {
@@ -495,15 +489,18 @@ public void chosen(ChessComponent chessPawn) {
         loadwrong.setText("Wrong ChessComponent");
 
     }
+
     public static void nonextfang() {
         statusLabel.setText("no next player");
 
     }
+
     public static void noteight() {
         loadwrong.setText("not a 8*8 chessboard");
 
     }
-    public static void nottxt(){
+
+    public static void nottxt() {
         loadwrong.setText("Wrong Format");
     }
 
@@ -512,6 +509,7 @@ public void chosen(ChessComponent chessPawn) {
         statusLabel.setText("White's Round");
 
     }
+
     public static void showblack() {
         statusLabel.setText("Black's Round");
 
@@ -533,7 +531,7 @@ public void chosen(ChessComponent chessPawn) {
         return chessboard;
     }
 
-    private void addFileChooser(){
+    private void addFileChooser() {
         button7.setLocation(HEIGHT, HEIGHT / 10 + 470);
         button7.setSize(200, 40);
         button7.setFont(new Font("Rockwell", Font.BOLD, 20));
@@ -541,10 +539,10 @@ public void chosen(ChessComponent chessPawn) {
         add(button7);
         button7.addActionListener(e -> {
             // TODO Auto-generated method stub
-            JFileChooser jfc=new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
-            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );
+            JFileChooser jfc = new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
+            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             jfc.showDialog(new JLabel(), "选择");
-            file=jfc.getSelectedFile();
+            file = jfc.getSelectedFile();
             gameController.loadGameFromFile(file.getAbsolutePath());
         });
     }
