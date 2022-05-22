@@ -1,16 +1,19 @@
 package view;
 
 import Music.Music;
+import Music.Video;
 import controller.ClickController;
 import controller.GameController;
 import model.*;
 import model.ChessComponent;
-
 import javax.swing.JFileChooser;
 import java.io.File;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,27 +36,30 @@ public class ChessGameFrame extends JFrame {
     protected final int WIDTH;
     protected static int HEIGHT;
     public final int CHESSBOARD_SIZE;
-    private Chessboard chessboard;
+    private  Chessboard chessboard;
     public static boolean isSkin;
     public static boolean isChanged;
     private GameController gameController;
     private final ChessComponent[][] chessComponents = new ChessComponent[8][8];
-    private ClickController clickController = new ClickController(chessboard);
+    private ClickController clickController=new ClickController(chessboard);
     static JLabel statusLabel = new JLabel();
     static JLabel loadwrong = new JLabel();
+
     static JButton button1 = new JButton("Restart");
     static JButton button2 = new JButton("Save");
-    static JButton button3 = new JButton("Change Color");
+    static JButton button3 = new JButton("Change Pic");
     static JButton button4 = new JButton("Load");
     static JButton button5 = new JButton("Music");
     static JButton button6 = new JButton("Change Skin");
     static JButton button10 = new JButton("Playback");
-    JButton button8 = new JButton("repentance");
-    static JLabel im = new JLabel();
-    static JButton button7 = new JButton("open");
+    JButton button8 = new JButton("Repentance");
+    static  JLabel im=new JLabel();
+    static JButton button7=new JButton("Open");
+    static JButton button9=new JButton("AI");
     static File file;
 
     public ChessGameFrame(int width, int height) {
+
         setTitle("2022 CS102A Project Demo"); //设置标题
         this.WIDTH = width;
         this.HEIGHT = height;
@@ -72,19 +78,24 @@ public class ChessGameFrame extends JFrame {
         addSaveButton();
         addhuiqibutton();
         addloadLabel();
-
-
+        addIA();
         addFileChooser();
         playback();
         changeSkin();
+        //xie();
         addBackground();
+//        Toolkit kit = Toolkit.getDefaultToolkit();
+//        Image img = kit.getImage("./images/nn.png");
+//
+//        Cursor mouse = kit.createCustomCursor(img, new Point(50,50), "stick");
+//        this.setCursor(mouse);
     }
 
     private void addLabel() {
         statusLabel.setText("White's Round");
-        statusLabel.setLocation(HEIGHT, HEIGHT / 10);
-        statusLabel.setSize(200, 40);
-        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        statusLabel.setLocation(700, HEIGHT / 50);
+        statusLabel.setSize(300, 50);
+        statusLabel.setFont(new Font("Ink Free", Font.BOLD, 40));
         add(statusLabel);
     }
 
@@ -111,9 +122,11 @@ public class ChessGameFrame extends JFrame {
 
     private void addChongZhiButton() {
 
-        button1.setLocation(HEIGHT, HEIGHT / 10 + 40);
-        button1.setSize(200, 30);
-        button1.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button1.setLocation(10, 100);
+        button1.setSize(200, 40);
+        button1.setFont(new Font("Ink Free", Font.BOLD, 35));
+        button1.setBorderPainted(false);
+        button1.setContentAreaFilled(false);
         add(button1);
 
         button1.addActionListener(e -> {
@@ -129,18 +142,18 @@ public class ChessGameFrame extends JFrame {
         });
 
     }
-
     public static void setN(AtomicInteger n) {
         ChessGameFrame.n = n;
     }
-
     static AtomicInteger n = new AtomicInteger();
 
     private void addhuiqibutton() {
 
-        button8.setLocation(HEIGHT, HEIGHT / 10 + 190);
+        button8.setLocation(10, 300);
         button8.setSize(200, 40);
-        button8.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button8.setFont(new Font("Ink Free", Font.BOLD, 30));
+        button8.setBorderPainted(false);
+        button8.setContentAreaFilled(false);
         add(button8);
         button8.addActionListener((e) -> {
             x++;
@@ -166,6 +179,33 @@ public class ChessGameFrame extends JFrame {
             }
         });
     }
+    private void addIA(){
+        button9.setLocation(450,15);
+        button9.setSize(200, 40);
+        button9.setFont(new Font("Ink Free", Font.BOLD, 35));
+        button9.setBorderPainted(false);
+        button9.setContentAreaFilled(false);
+        add(button9);
+        button9.addActionListener((e) ->{
+            Desktop desktop = Desktop.getDesktop();
+
+            URI uri = null; //创建URI统一资源标识符
+            try {
+                uri = new URI("https://www.bilibili.com/video/BV1GJ411x7h7?spm_id_from=333.337.search-card.all.click");
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+
+            try {
+                desktop.browse(uri);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+//            JOptionPane j=new JOptionPane();
+//            ImageIcon icon=new ImageIcon("./images/aniya.png");
+//            JOptionPane.showMessageDialog(null,"https://search.bilibili.com/all?vt=65342903&keyword=Never%20Gonna%20Give%20You%20Up&from_source=webtop_search&spm_id_from=333.1007","Winner",JOptionPane.PLAIN_MESSAGE,icon);
+        });
+    }
 
     private void addSaveButton() {
 
@@ -178,41 +218,42 @@ public class ChessGameFrame extends JFrame {
             writeFiles(transferToText);
 
         });
-        button2.setLocation(HEIGHT, HEIGHT / 10 + 70);
+        button2.setLocation(10, 200);
         button2.setSize(200, 40);
-        button2.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button2.setFont(new Font("Ink Free", Font.BOLD, 35));
+        button2.setBorderPainted(false);
+        button2.setContentAreaFilled(false);
         add(button2);
     }
 
     private void addChangeButton() {
-        button3.setLocation(HEIGHT, HEIGHT / 10 + 150);
+        button3.setLocation(790, 100);
         button3.setSize(200, 40);
-        button3.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button3.setFont(new Font("Ink Free", Font.BOLD, 30));
+        button3.setBorderPainted(false);
+        button3.setContentAreaFilled(false);
         add(button3);
-        AtomicInteger n = new AtomicInteger();
-        button3.addActionListener((e) -> {
+        AtomicInteger n= new AtomicInteger();
+        button3.addActionListener((e) ->{
             n.getAndIncrement();
-            if (n.get() % 2 == 1) {
-                isChanged = true;
+            if(n.get() %2==1){
+                isChanged=true;
                 this.repaint();
-            } else if (n.get() % 2 == 0) {
-                isChanged = false;
+            } else if(n.get() %2==0){
+                isChanged=false;
                 this.repaint();
-            }
-        });
+            }});
     }
-
     private void playback() {
-        button10.setLocation(HEIGHT, HEIGHT / 10 + 230);
+        button10.setLocation(790, 200);
         button10.setSize(200, 40);
-        button10.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button10.setFont(new Font("Ink Free", Font.BOLD, 35));
+        button10.setBorderPainted(false);
+        button10.setContentAreaFilled(false);
         add(button10);
-        button10.addActionListener((e) -> {
+        button10.addActionListener((e) ->{
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
-        });
-    }
-
 
 //           if(currentColor==ChessColor.WHITE){
 //               showwhite();
@@ -221,8 +262,10 @@ public class ChessGameFrame extends JFrame {
 //               showblack();
 //           }
 //           repaint();
+        });
+    }
 
-    //    private void addLoadButton() {
+//    private void addLoadButton() {
 //
 //        button4.setLocation(HEIGHT, HEIGHT / 10 + 240);
 //        button4.setSize(200, 40);
@@ -235,69 +278,81 @@ public class ChessGameFrame extends JFrame {
 //            gameController.loadGameFromFile(file.getAbsolutePath());
 //        });
 //    }
-    public void chosen(ChessComponent pawn) {
-        JOptionPane jOptionPane = new JOptionPane();
-        String[] options = {"Queen", "Rook", "Knight", "Bishop"};
-        int n = JOptionPane.showOptionDialog(this, "Choose Type：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        int x = pawn.getChessboardPoint().getX();
-        int y = pawn.getChessboardPoint().getY();
-        ChessColor pawnColor = pawn.getChessColor();
-        if (n == 0) {
-            gameController.getChessboard().initQueenOnBoard(x, y, pawnColor);
-
-        } else if (n == 1) {
-            gameController.getChessboard().initRookOnBoard(x, y, pawnColor);
-
-        } else if (n == 2) {
-            gameController.getChessboard().initKnightOnBoard(x, y, pawnColor);
-
-        } else if (n == 3) {
-            gameController.getChessboard().initBishopOnBoard(x, y, pawnColor);
-
-        }
-
-        repaint();
-    }
 
     private void addPlayMusicButton() {
 
-        button5.setLocation(HEIGHT, HEIGHT / 10 + 360);
+        button5.setLocation(790, 300);
         button5.setSize(200, 40);
-        button5.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button5.setFont(new Font("Ink Free", Font.BOLD, 35));
+        button5.setBorderPainted(false);
+        button5.setContentAreaFilled(false);
         add(button5);
 
         //背景音乐启动
-        AtomicInteger n = new AtomicInteger();
+        AtomicInteger n= new AtomicInteger();
         button5.addActionListener(e -> {
             n.getAndIncrement();
-            if (n.get() % 2 == 1) {
-                audioPlayWave1.start();
-            } else if (n.get() % 2 == 0) {
+            if(n.get() %2==1){
+                audioPlayWave1.start();}
+            else if(n.get() %2==0){
                 audioPlayWave1.stop();
             }
         });
     }
 
-    private void addBackground() {
-        ImageIcon icon = new ImageIcon("./images/img.png");
+    private void addBackground(){
+        ImageIcon icon=new ImageIcon("./images/bb.png");
         im.setIcon(icon);
 //        icon.setImage(icon.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
         im.setHorizontalAlignment(SwingConstants.CENTER);
-        im.setSize(WIDTH, HEIGHT);
+        im.setSize(WIDTH,HEIGHT);
         im.setOpaque(true);
         add(im);
     }
+    public  static void dead(String warning){
+        JOptionPane j=new JOptionPane();
+        ImageIcon icon=new ImageIcon("./images/aniya.png");
+        JOptionPane.showMessageDialog(null,warning,"Winner",JOptionPane.PLAIN_MESSAGE,icon);
 
-    public static void dead(String warning) {
-        JOptionPane j = new JOptionPane();
-        JOptionPane.showMessageDialog(null, warning);
+
+    }
+    public void chosen(ChessComponent chessPawn) {
+        JOptionPane jOptionPane = new JOptionPane();
+        String[] options = {"皇后", "战车", "骑士", "主教"};
+        int n = JOptionPane.showOptionDialog(this, "请选择升变类型：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int x = chessPawn.getChessboardPoint().getX();
+        int y = chessPawn.getChessboardPoint().getY();
+        ChessColor pawnColor = chessPawn.getChessColor();
+        switch (n) {
+            case 0:
+                gameController.getChessboard().initQueenOnBoard(x, y, pawnColor);
+                break;
+            case 1:
+                gameController.getChessboard().initRookOnBoard(x, y, pawnColor);
+                break;
+            case 2:
+                gameController.getChessboard().initKnightOnBoard(x, y, pawnColor);
+                break;
+            case 3:
+                gameController.getChessboard().initBishopOnBoard(x, y, pawnColor);
+                break;
+        }
+        repaint();
     }
 
-    public static boolean isClose;
 
-    public static void dead2(String warning) {
-        int result = JOptionPane.showOptionDialog(null, warning, "Next Step", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Exit", "Restart"}, null);
-        if (result == JOptionPane.OK_OPTION) {
+    public static void xie(){
+        JLabel xie=new JLabel();
+        ImageIcon icon=new ImageIcon("./images/aniya.png");
+        xie.setIcon(icon);
+        xie.setSize(200,200);
+        xie.setLocation(790,540);
+        xie.setVisible(true);
+    }
+
+    public static void dead2(String warning){
+        int result=JOptionPane.showOptionDialog(null,warning,"Next Step",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null,new String[]{"润了润了","重开重开"},null);
+        if(result==JOptionPane.OK_OPTION){
             System.exit(0);
             System.exit(0);
         }
@@ -308,99 +363,77 @@ public class ChessGameFrame extends JFrame {
 //        }
     }
 
-    private void changeSkin() {
-        button6.setLocation(HEIGHT, HEIGHT / 10 + 420);
-        button6.setSize(200, 40);
-        button6.setFont(new Font("Rockwell", Font.BOLD, 20));
+    private void changeSkin(){
+        button6.setLocation(770, 370);
+        button6.setSize(250, 40);
+        button6.setFont(new Font("Ink Free", Font.BOLD, 30));
+        button6.setBorderPainted(false);
+        button6.setContentAreaFilled(false);
         add(button6);
-        AtomicInteger n = new AtomicInteger();
-        button6.addActionListener((e) -> {
+        AtomicInteger n= new AtomicInteger();
+        button6.addActionListener((e) ->{
             n.getAndIncrement();
-            if (n.get() % 2 == 1) {
-                isSkin = true;
+            if(n.get() %2==1){
+                isSkin=true;
                 this.repaint();
                 statusLabel.setForeground(Color.WHITE);
-                button1.setBackground(Color.green.darker());
-                button1.setOpaque(true);
-                button1.setBorderPainted(true);
-                button2.setBackground(Color.green.darker());
-                button2.setOpaque(true);
-                button2.setBorderPainted(true);
-                button3.setBackground(Color.green.darker());
-                button3.setOpaque(true);
-                button3.setBorderPainted(true);
-                button4.setBackground(Color.green.darker());
-                button4.setOpaque(true);
-                button4.setBorderPainted(true);
-                button5.setBackground(Color.green.darker());
-                button5.setOpaque(true);
-                button5.setBorderPainted(true);
-                button6.setBackground(Color.green.darker());
-                button6.setOpaque(true);
-                button6.setBorderPainted(true);
-                button7.setBackground(Color.green.darker());
-                button7.setOpaque(true);
-                button7.setBorderPainted(true);
-                button8.setBackground(Color.green.darker());
-                button8.setOpaque(true);
-                button8.setBorderPainted(true);
-                button10.setBackground(Color.green.darker());
-                button10.setOpaque(true);
-                button10.setBorderPainted(true);
+
+                button1.setForeground(Color.WHITE);
+                button2.setForeground(Color.WHITE);
+                button3.setForeground(Color.WHITE);
+                button4.setForeground(Color.WHITE);
+                button5.setForeground(Color.WHITE);
+                button6.setForeground(Color.WHITE);
+                button7.setForeground(Color.WHITE);
+                button8.setForeground(Color.WHITE);
+                button9.setForeground(Color.WHITE);
+                button10.setForeground(Color.WHITE);
+                loadwrong.setForeground(Color.RED);
 
 
-                ImageIcon icon2 = new ImageIcon("./images/img2.jpg");
+                ImageIcon icon2=new ImageIcon("./images/gou.png");
                 im.setIcon(icon2);
-                icon2.setImage(icon2.getImage().getScaledInstance(1000, 750, Image.SCALE_DEFAULT));
+                icon2.setImage(icon2.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
                 im.setHorizontalAlignment(SwingConstants.CENTER);
-                im.setSize(WIDTH, HEIGHT);
+                im.setSize(WIDTH,HEIGHT);
                 im.setOpaque(true);
                 add(im);
                 this.repaint();
-            } else if (n.get() % 2 == 0) {
+            } else if(n.get() %2==0){
                 statusLabel.setForeground(Color.BLACK);
-                isSkin = false;
-                button1.setOpaque(false);
-                button1.setBorderPainted(true);
-                button2.setOpaque(false);
-                button2.setBorderPainted(true);
-                button3.setOpaque(false);
-                button3.setBorderPainted(true);
-                button4.setOpaque(false);
-                button4.setBorderPainted(true);
-                button5.setOpaque(false);
-                button5.setBorderPainted(true);
-                button6.setOpaque(false);
-                button6.setBorderPainted(true);
-                button7.setOpaque(false);
-                button7.setBorderPainted(true);
-                button8.setOpaque(false);
-                button8.setBorderPainted(true);
-                button10.setOpaque(false);
-                button10.setBorderPainted(true);
+                isSkin=false;
 
-                ImageIcon icon = new ImageIcon("./images/img.png");
+                button1.setForeground(Color.BLACK);
+                button2.setForeground(Color.BLACK);
+                button3.setForeground(Color.BLACK);
+                button4.setForeground(Color.BLACK);
+                button5.setForeground(Color.BLACK);
+                button6.setForeground(Color.BLACK);
+                button7.setForeground(Color.BLACK);
+                button8.setForeground(Color.BLACK);
+                button9.setForeground(Color.BLACK);
+                button10.setForeground(Color.BLACK);
+                loadwrong.setForeground(Color.RED);
+                ImageIcon icon=new ImageIcon("./images/bb.png");
                 im.setIcon(icon);
 //        icon.setImage(icon.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
                 im.setHorizontalAlignment(SwingConstants.CENTER);
-                im.setSize(WIDTH, HEIGHT);
+                im.setSize(WIDTH,HEIGHT);
                 im.setOpaque(true);
                 add(im);
                 this.repaint();
-            }
-        });
+            }});
 
     }
-
     /**
      * 在游戏面板中添加棋盘
      */
     private void addChessboard() {
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
-        chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE, 8, true));
+        chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE,8,true));
         gameController = new GameController(chessboard);
-        chessboard.setBounds(getHEIGHT() / 10, getHEIGHT() / 10, getHEIGHT() * 4 / 5, getHEIGHT() * 4 / 5);
-        chessboard.setChessGameFrame(this);
+        chessboard.setBounds(200, 75,getHEIGHT()*4/5,getHEIGHT()*4/5);
+       chessboard.setChessGameFrame(this);
         add(chessboard);
     }
 //
@@ -409,12 +442,17 @@ public class ChessGameFrame extends JFrame {
      */
 
 
+
+
+
     /**
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
      */
 
 
+
     Music audioPlayWave1 = new Music("doudizhu.wav");// 开音乐 音樂名
+
 
 
 //    private void addStopMusicButton() {
@@ -429,6 +467,10 @@ public class ChessGameFrame extends JFrame {
 //            audioPlayWave1.stop();
 //        });
 //    }
+
+
+
+
 
 
     private void writeFiles(ArrayList<String> transfer) {
@@ -466,7 +508,6 @@ public class ChessGameFrame extends JFrame {
 
 
     }
-
     //    public void removechess() {
 //        for (int i = 0; i < 8; i++) {
 //            for (int j = 0; j < 8; j++) {
@@ -478,9 +519,10 @@ public class ChessGameFrame extends JFrame {
 //    }
     private void addloadLabel() {
         loadwrong.setText("");
-        loadwrong.setLocation(HEIGHT, HEIGHT / 10 + 110);
-        loadwrong.setSize(200, 40);
-        loadwrong.setFont(new Font("Rockwell", Font.BOLD, 15));
+        loadwrong.setLocation(50,15);
+        loadwrong.setSize(1000, 40);
+        loadwrong.setFont(new Font("Ink Free", Font.BOLD, 40));
+        loadwrong.setForeground(Color.RED);
         add(loadwrong);
 
     }
@@ -489,18 +531,15 @@ public class ChessGameFrame extends JFrame {
         loadwrong.setText("Wrong ChessComponent");
 
     }
-
     public static void nonextfang() {
         statusLabel.setText("no next player");
 
     }
-
     public static void noteight() {
         loadwrong.setText("not a 8*8 chessboard");
 
     }
-
-    public static void nottxt() {
+    public static void nottxt(){
         loadwrong.setText("Wrong Format");
     }
 
@@ -509,7 +548,6 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setText("White's Round");
 
     }
-
     public static void showblack() {
         statusLabel.setText("Black's Round");
 
@@ -531,18 +569,20 @@ public class ChessGameFrame extends JFrame {
         return chessboard;
     }
 
-    private void addFileChooser() {
-        button7.setLocation(HEIGHT, HEIGHT / 10 + 470);
+    private void addFileChooser(){
+        button7.setLocation(10, 370);
         button7.setSize(200, 40);
-        button7.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button7.setFont(new Font("Ink Free", Font.BOLD, 35));
         button7.setOpaque(true);
+        button7.setBorderPainted(false);
+        button7.setContentAreaFilled(false);
         add(button7);
         button7.addActionListener(e -> {
             // TODO Auto-generated method stub
-            JFileChooser jfc = new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
-            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            JFileChooser jfc=new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
+            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );
             jfc.showDialog(new JLabel(), "选择");
-            file = jfc.getSelectedFile();
+            file=jfc.getSelectedFile();
             gameController.loadGameFromFile(file.getAbsolutePath());
         });
     }
@@ -550,4 +590,6 @@ public class ChessGameFrame extends JFrame {
     public GameController getGameController() {
         return gameController;
     }
+
+
 }
