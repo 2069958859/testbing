@@ -44,6 +44,7 @@ public class ChessGameFrame extends JFrame {
     public final int CHESSBOARD_SIZE;
     private Chessboard chessboard;
     public static boolean isSkin;
+
     public static boolean isChanged;
     private GameController gameController;
     private final ChessComponent[][] chessComponents = new ChessComponent[8][8];
