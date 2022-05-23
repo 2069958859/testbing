@@ -98,7 +98,7 @@ public abstract class ChessComponent extends JComponent {
         setLocation(point2);
         another.setChessboardPoint(chessboardPoint1);
         another.setLocation(point1);
-        ChessGameFrame.time2=10;
+        ChessGameFrame.time2=30;
     }
 
     /**

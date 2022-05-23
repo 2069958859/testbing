@@ -7,6 +7,9 @@ import controller.GameController;
 import model.*;
 import model.ChessComponent;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFileChooser;
 import java.io.File;
 import javax.swing.*;
@@ -48,6 +51,7 @@ public class ChessGameFrame extends JFrame {
     static JLabel statusLabel = new JLabel();
     static JLabel loadwrong = new JLabel();
     static JLabel Timer1 = new JLabel();
+    static File file;
 
     static JButton button1 = new JButton("Restart");
     static JButton button2 = new JButton("Save");
@@ -60,8 +64,7 @@ public class ChessGameFrame extends JFrame {
     static JLabel im = new JLabel();
     static JButton button7 = new JButton("Open");
     static JButton button9 = new JButton("AI");
-    static File file;
-    public static int time2 = 10;
+     public static int time2 = 30;
 
 
     public ChessGameFrame(int width, int height) {
@@ -142,7 +145,7 @@ public class ChessGameFrame extends JFrame {
 
             statusLabel.setText("White's Round");
             loadwrong.setText("");
-            time2=10;
+            time2=30;
 
             repaint();
         });
@@ -180,7 +183,7 @@ public class ChessGameFrame extends JFrame {
                     statusLabel.setText("Black's Round");
 
                 }
-                time2=10;
+                time2=30;
 //            changecurrentcolor();
 //            changelabel();
                 repaint();
@@ -190,7 +193,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addIA() {
-        button9.setLocation(450, 15);
+        button9.setLocation(790, 500);
         button9.setSize(200, 40);
         button9.setFont(new Font("Ink Free", Font.BOLD, 35));
         button9.setBorderPainted(false);
@@ -266,7 +269,7 @@ public class ChessGameFrame extends JFrame {
         button10.addActionListener((e) -> {
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
-            time2=10;
+            time2=30;
 
         });
     }
@@ -320,7 +323,7 @@ public class ChessGameFrame extends JFrame {
 //        JOptionPane j = new JOptionPane();
         ImageIcon icon = new ImageIcon("./images/aniya.png");
         JOptionPane.showMessageDialog(null, warning, "Winner", JOptionPane.PLAIN_MESSAGE, icon);
-
+        playclick(new File(".\\yinxiao\\bb.wav"));
 
     }
 
@@ -359,7 +362,8 @@ public class ChessGameFrame extends JFrame {
     }
 
     public static void dead2(String warning) {
-        int result = JOptionPane.showOptionDialog(null, warning, "Next Step", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"润了润了", "重开重开"}, null);
+        int result = JOptionPane.showOptionDialog(null, warning, "Next Step", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"溜了溜了", "重开重开"}, null);
+        playclick(new File(".\\yinxiao\\cc.wav"));
         if (result == JOptionPane.OK_OPTION) {
             System.exit(0);
             System.exit(0);
@@ -390,7 +394,7 @@ public class ChessGameFrame extends JFrame {
                 button6.setForeground(Color.WHITE);
                 button7.setForeground(Color.WHITE);
                 button8.setForeground(Color.WHITE);
-                button9.setForeground(Color.WHITE);
+                button9.setForeground(Color.RED);
                 button10.setForeground(Color.WHITE);
                 loadwrong.setForeground(Color.RED);
 
@@ -406,7 +410,7 @@ public class ChessGameFrame extends JFrame {
             } else if (n.get() % 2 == 0) {
                 statusLabel.setForeground(Color.BLACK);
                 isSkin = false;
-
+                Timer1.setForeground(Color.BLACK);
                 button1.setForeground(Color.BLACK);
                 button2.setForeground(Color.BLACK);
                 button3.setForeground(Color.BLACK);
@@ -441,7 +445,7 @@ public class ChessGameFrame extends JFrame {
         chessboard.setBounds(200, 75, getHEIGHT() * 4 / 5, getHEIGHT() * 4 / 5);
         chessboard.setChessGameFrame(this);
         add(chessboard);
-        Timer1.setLocation(0,0);
+        Timer1.setLocation(10,0);
         Timer1.setSize(200,60);
         Timer1.setFont(new Font("ink free",Font.BOLD,30));
         Timer1.setForeground(Color.BLACK);
@@ -460,13 +464,13 @@ public class ChessGameFrame extends JFrame {
                     Timer1.setText("Time Over");
                     changelabel();
                     chessboard.swapColor();
-                    time2 = 10;
+                    time2 = 30;
                 }
             }
         },0,1000);
 
 
-}
+    }
 
     public void setTime2(int i) {
         time2 = i;
@@ -530,13 +534,17 @@ public class ChessGameFrame extends JFrame {
 
     }
 
-    private void addloadLabel() {
+    private  void addloadLabel() {
         loadwrong.setText("");
-        loadwrong.setLocation(50, 15);
-        loadwrong.setSize(1000, 40);
+        loadwrong.setLocation(250, 15);
+        loadwrong.setSize(500, 50);
         loadwrong.setFont(new Font("Ink Free", Font.BOLD, 40));
         loadwrong.setForeground(Color.RED);
         add(loadwrong);
+
+    }
+    public static void qingkongchesswrong() {
+        loadwrong.setText("");
 
     }
 
@@ -546,7 +554,8 @@ public class ChessGameFrame extends JFrame {
     }
 
     public static void nonextfang() {
-        statusLabel.setText("no next player");
+        statusLabel.setText("");
+        loadwrong.setText("no next player");
 
     }
 
@@ -591,13 +600,21 @@ public class ChessGameFrame extends JFrame {
             jfc.showDialog(new JLabel(), "选择");
             file = jfc.getSelectedFile();
             gameController.loadGameFromFile(file.getAbsolutePath());
-            time2=10;
+            time2=30;
         });
     }
 
     public GameController getGameController() {
         return gameController;
     }
+    public static void playclick(File file){
+        try{
+            Clip clip= AudioSystem.getClip();
+            AudioInputStream audioInput=AudioSystem.getAudioInputStream(file);
+            clip.open(audioInput);
+            clip.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
-
-}
+    }}
