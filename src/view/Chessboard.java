@@ -206,7 +206,7 @@ public class Chessboard extends JComponent {
         }
         if (isDeadw) {
             dead2(warningw);
-            time2=10;
+            time2 = 10;
             initall();
             recordchessboard.clear();
             recordchessboard.add("R0N0B0Q0K0B0N0R0*P0P0P0P0P0P0P0P0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*_0_0_0_0_0_0_0_0*p0p0p0p0p0p0p0p0*r0n0b0q0k0b0n0r0*w");
@@ -217,7 +217,7 @@ public class Chessboard extends JComponent {
             isDeadw = false;
         } else if (isDeadb) {
             dead2(warningb);
-            time2=10;
+            time2 = 10;
 
             initall();
             recordchessboard.clear();
