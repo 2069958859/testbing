@@ -81,7 +81,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CountDown">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="CountDown" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.CountDown" />
       <module name="chess" />
@@ -102,10 +102,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RestartSelfListener" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.RestartSelfListener" />
+      <module name="chess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CountDown" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.RestartSelfListener" />
+        <item itemvalue="Application.CountDown" />
       </list>
     </recent_temporary>
   </component>
