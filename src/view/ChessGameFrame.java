@@ -77,7 +77,6 @@ public class ChessGameFrame extends JFrame {
         addChessboard();
         addLabel();
         addChangeButton();
-//        addLoadButton();
         addPlayMusicButton();
         // addStopMusicButton();
         addChongZhiButton();
@@ -267,6 +266,7 @@ public class ChessGameFrame extends JFrame {
         button10.addActionListener((e) -> {
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
+            time2=10;
 
         });
     }
@@ -380,6 +380,7 @@ public class ChessGameFrame extends JFrame {
                 isSkin = true;
                 this.repaint();
                 statusLabel.setForeground(Color.WHITE);
+                Timer1.setForeground(Color.WHITE);
 
                 button1.setForeground(Color.WHITE);
                 button2.setForeground(Color.WHITE);
@@ -433,7 +434,6 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加棋盘
      */
-//    java.util.Timer timer = new Timer();
     private void addChessboard() {
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
         chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE, 8, true));
@@ -591,6 +591,7 @@ public class ChessGameFrame extends JFrame {
             jfc.showDialog(new JLabel(), "选择");
             file = jfc.getSelectedFile();
             gameController.loadGameFromFile(file.getAbsolutePath());
+            time2=10;
         });
     }
 
