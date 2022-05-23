@@ -28,7 +28,7 @@ public class Sound {
     // 一次播放 开始
     public void start() {
         if(as == null) {
-            System.out.println("AudioStream object is not created!");
+//            System.out.println("AudioStream object is not created!");
             return;
         } else {
             AudioPlayer.player.start(as);
@@ -38,7 +38,7 @@ public class Sound {
     // 一次播放 停止
     public void stop() {
         if(as == null) {
-            System.out.println("AudioStream object is not created!");
+//            System.out.println("AudioStream object is not created!");
             return;
         } else {
             AudioPlayer.player.stop(as);
@@ -51,7 +51,7 @@ public class Sound {
         AudioData data = null;
         int l=as.getLength();
         try {
-            System.out.println(l);
+//            System.out.println(l);
             data = as.getData();  //getData()函数不支持 mid的音频文件
 
         } catch(IOException e) {

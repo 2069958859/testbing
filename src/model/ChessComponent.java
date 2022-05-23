@@ -38,7 +38,7 @@ public abstract class ChessComponent extends JComponent {
 //    private static final Dimension CHESSGRID_SIZE = new Dimension(1080 / 4 * 3 / 8, 1080 / 4 * 3 / 8);
     private  Color[] BACKGROUND_COLORS = {Color.white, Color.black};
     private static final Color[] BACKGROUND_COLORS2 = {Color.black, Color.pink.darker()};
-    private static final Color[] BACKGROUND_COLORS3 = {Color.white, Color.CYAN.darker()};
+    private static final Color[] BACKGROUND_COLORS3 = {Color.white, Color.GRAY};
     /**
      * handle click event
      */
@@ -98,6 +98,7 @@ public abstract class ChessComponent extends JComponent {
         setLocation(point2);
         another.setChessboardPoint(chessboardPoint1);
         another.setLocation(point1);
+        ChessGameFrame.time2=10;
     }
 
     /**
@@ -118,7 +119,7 @@ public abstract class ChessComponent extends JComponent {
         if(e.getID()==MouseEvent.MOUSE_EXITED)
         {paintComponent(getGraphics());}
         if (e.getID() == MouseEvent.MOUSE_PRESSED) {
-            System.out.printf("Click [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
+//            System.out.printf("Click [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
             clickController.onClick(this);
 
 //            Sound hehe=new Sound("aa.WAV");
@@ -157,7 +158,7 @@ public abstract class ChessComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponents(g);
-        System.out.printf("repaint chess [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
+//        System.out.printf("repaint chess [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
         Color squareColor = BACKGROUND_COLORS[(chessboardPoint.getX() + chessboardPoint.getY()) % 2];
         g.setColor(squareColor);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());

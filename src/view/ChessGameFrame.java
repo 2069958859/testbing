@@ -6,6 +6,7 @@ import controller.ClickController;
 import controller.GameController;
 import model.*;
 import model.ChessComponent;
+
 import javax.swing.JFileChooser;
 import java.io.File;
 import javax.swing.*;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
@@ -36,14 +39,15 @@ public class ChessGameFrame extends JFrame {
     protected final int WIDTH;
     protected static int HEIGHT;
     public final int CHESSBOARD_SIZE;
-    private  Chessboard chessboard;
+    private Chessboard chessboard;
     public static boolean isSkin;
     public static boolean isChanged;
     private GameController gameController;
     private final ChessComponent[][] chessComponents = new ChessComponent[8][8];
-    private ClickController clickController=new ClickController(chessboard);
+    private ClickController clickController = new ClickController(chessboard);
     static JLabel statusLabel = new JLabel();
     static JLabel loadwrong = new JLabel();
+    static JLabel Timer1 = new JLabel();
 
     static JButton button1 = new JButton("Restart");
     static JButton button2 = new JButton("Save");
@@ -53,10 +57,12 @@ public class ChessGameFrame extends JFrame {
     static JButton button6 = new JButton("Change Skin");
     static JButton button10 = new JButton("Playback");
     JButton button8 = new JButton("Repentance");
-    static  JLabel im=new JLabel();
-    static JButton button7=new JButton("Open");
-    static JButton button9=new JButton("AI");
+    static JLabel im = new JLabel();
+    static JButton button7 = new JButton("Open");
+    static JButton button9 = new JButton("AI");
     static File file;
+    public static int time2 = 10;
+
 
     public ChessGameFrame(int width, int height) {
 
@@ -137,14 +143,17 @@ public class ChessGameFrame extends JFrame {
 
             statusLabel.setText("White's Round");
             loadwrong.setText("");
+            time2=10;
 
             repaint();
         });
 
     }
+
     public static void setN(AtomicInteger n) {
         ChessGameFrame.n = n;
     }
+
     static AtomicInteger n = new AtomicInteger();
 
     private void addhuiqibutton() {
@@ -172,6 +181,7 @@ public class ChessGameFrame extends JFrame {
                     statusLabel.setText("Black's Round");
 
                 }
+                time2=10;
 //            changecurrentcolor();
 //            changelabel();
                 repaint();
@@ -179,14 +189,15 @@ public class ChessGameFrame extends JFrame {
             }
         });
     }
-    private void addIA(){
-        button9.setLocation(450,15);
+
+    private void addIA() {
+        button9.setLocation(450, 15);
         button9.setSize(200, 40);
         button9.setFont(new Font("Ink Free", Font.BOLD, 35));
         button9.setBorderPainted(false);
         button9.setContentAreaFilled(false);
         add(button9);
-        button9.addActionListener((e) ->{
+        button9.addActionListener((e) -> {
             Desktop desktop = Desktop.getDesktop();
 
             URI uri = null; //创建URI统一资源标识符
@@ -211,7 +222,7 @@ public class ChessGameFrame extends JFrame {
 
         button2.addActionListener((e) -> {
             //JOptionPane.
-            System.out.println("save");
+//            System.out.println("save");
             ArrayList<String> transferToText = new ArrayList<>();
             transferToText = getRecordchessboard();
             //this is an auto filer format: save1.txt 1represent a positive number
@@ -233,17 +244,19 @@ public class ChessGameFrame extends JFrame {
         button3.setBorderPainted(false);
         button3.setContentAreaFilled(false);
         add(button3);
-        AtomicInteger n= new AtomicInteger();
-        button3.addActionListener((e) ->{
+        AtomicInteger n = new AtomicInteger();
+        button3.addActionListener((e) -> {
             n.getAndIncrement();
-            if(n.get() %2==1){
-                isChanged=true;
+            if (n.get() % 2 == 1) {
+                isChanged = true;
                 this.repaint();
-            } else if(n.get() %2==0){
-                isChanged=false;
+            } else if (n.get() % 2 == 0) {
+                isChanged = false;
                 this.repaint();
-            }});
+            }
+        });
     }
+
     private void playback() {
         button10.setLocation(790, 200);
         button10.setSize(200, 40);
@@ -251,7 +264,7 @@ public class ChessGameFrame extends JFrame {
         button10.setBorderPainted(false);
         button10.setContentAreaFilled(false);
         add(button10);
-        button10.addActionListener((e) ->{
+        button10.addActionListener((e) -> {
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
 
@@ -289,70 +302,72 @@ public class ChessGameFrame extends JFrame {
         add(button5);
 
         //背景音乐启动
-        AtomicInteger n= new AtomicInteger();
+        AtomicInteger n = new AtomicInteger();
         button5.addActionListener(e -> {
             n.getAndIncrement();
-            if(n.get() %2==1){
-                audioPlayWave1.start();}
-            else if(n.get() %2==0){
+            if (n.get() % 2 == 1) {
+                audioPlayWave1.start();
+            } else if (n.get() % 2 == 0) {
                 audioPlayWave1.stop();
             }
         });
     }
 
-    private void addBackground(){
-        ImageIcon icon=new ImageIcon("./images/bb.png");
+    private void addBackground() {
+        ImageIcon icon = new ImageIcon("./images/bb.png");
         im.setIcon(icon);
 //        icon.setImage(icon.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
         im.setHorizontalAlignment(SwingConstants.CENTER);
-        im.setSize(WIDTH,HEIGHT);
+        im.setSize(WIDTH, HEIGHT);
         im.setOpaque(true);
         add(im);
     }
-    public  static void dead(String warning){
-        JOptionPane j=new JOptionPane();
-        ImageIcon icon=new ImageIcon("./images/aniya.png");
-        JOptionPane.showMessageDialog(null,warning,"Winner",JOptionPane.PLAIN_MESSAGE,icon);
+
+    public static void dead(String warning) {
+        JOptionPane j = new JOptionPane();
+        ImageIcon icon = new ImageIcon("./images/aniya.png");
+        JOptionPane.showMessageDialog(null, warning, "Winner", JOptionPane.PLAIN_MESSAGE, icon);
 
 
     }
+
     public void chosen(ChessComponent chessPawn) {
         JOptionPane jOptionPane = new JOptionPane();
-        String[] options = {"皇后", "战车", "骑士", "主教"};
-        int n = JOptionPane.showOptionDialog(this, "请选择升变类型：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String[] options = {"Queen", "Rook", "Knight", "Bishop"};
+        int n = JOptionPane.showOptionDialog(this, "choose type：", "兵底线升变", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         int x = chessPawn.getChessboardPoint().getX();
         int y = chessPawn.getChessboardPoint().getY();
         ChessColor pawnColor = chessPawn.getChessColor();
-        switch (n) {
-            case 0:
-                gameController.getChessboard().initQueenOnBoard(x, y, pawnColor);
-                break;
-            case 1:
-                gameController.getChessboard().initRookOnBoard(x, y, pawnColor);
-                break;
-            case 2:
-                gameController.getChessboard().initKnightOnBoard(x, y, pawnColor);
-                break;
-            case 3:
-                gameController.getChessboard().initBishopOnBoard(x, y, pawnColor);
-                break;
+        if (n == 0) {
+            gameController.getChessboard().initQueenOnBoard(x, y, pawnColor);
         }
+        if (n == 1) {
+            gameController.getChessboard().initRookOnBoard(x, y, pawnColor);
+        }
+        if (n == 2) {
+            gameController.getChessboard().initKnightOnBoard(x, y, pawnColor);
+        }
+        if (n == 3) {
+            gameController.getChessboard().initBishopOnBoard(x, y, pawnColor);
+        }
+
         repaint();
+
     }
 
 
-    public static void xie(){
-        JLabel xie=new JLabel();
-        ImageIcon icon=new ImageIcon("./images/aniya.png");
+    public static void xie() {
+        JLabel xie = new JLabel();
+        ImageIcon icon = new ImageIcon("./images/aniya.png");
         xie.setIcon(icon);
-        xie.setSize(200,200);
-        xie.setLocation(790,540);
+        xie.setSize(200, 200);
+        xie.setLocation(790, 540);
         xie.setVisible(true);
     }
 
-    public static void dead2(String warning){
-        int result=JOptionPane.showOptionDialog(null,warning,"Next Step",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null,new String[]{"润了润了","重开重开"},null);
-        if(result==JOptionPane.OK_OPTION){
+    public static void dead2(String warning) {
+        int result = JOptionPane.showOptionDialog(null, warning, "Next Step", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"润了润了", "重开重开"}, null);
+        if (result == JOptionPane.OK_OPTION) {
             System.exit(0);
             System.exit(0);
         }
@@ -363,18 +378,18 @@ public class ChessGameFrame extends JFrame {
 //        }
     }
 
-    private void changeSkin(){
+    private void changeSkin() {
         button6.setLocation(770, 370);
         button6.setSize(250, 40);
         button6.setFont(new Font("Ink Free", Font.BOLD, 30));
         button6.setBorderPainted(false);
         button6.setContentAreaFilled(false);
         add(button6);
-        AtomicInteger n= new AtomicInteger();
-        button6.addActionListener((e) ->{
+        AtomicInteger n = new AtomicInteger();
+        button6.addActionListener((e) -> {
             n.getAndIncrement();
-            if(n.get() %2==1){
-                isSkin=true;
+            if (n.get() % 2 == 1) {
+                isSkin = true;
                 this.repaint();
                 statusLabel.setForeground(Color.WHITE);
 
@@ -391,17 +406,17 @@ public class ChessGameFrame extends JFrame {
                 loadwrong.setForeground(Color.RED);
 
 
-                ImageIcon icon2=new ImageIcon("./images/gou.png");
+                ImageIcon icon2 = new ImageIcon("./images/gou.png");
                 im.setIcon(icon2);
-                icon2.setImage(icon2.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
+                icon2.setImage(icon2.getImage().getScaledInstance(1000, 750, Image.SCALE_DEFAULT));
                 im.setHorizontalAlignment(SwingConstants.CENTER);
-                im.setSize(WIDTH,HEIGHT);
+                im.setSize(WIDTH, HEIGHT);
                 im.setOpaque(true);
                 add(im);
                 this.repaint();
-            } else if(n.get() %2==0){
+            } else if (n.get() % 2 == 0) {
                 statusLabel.setForeground(Color.BLACK);
-                isSkin=false;
+                isSkin = false;
 
                 button1.setForeground(Color.BLACK);
                 button2.setForeground(Color.BLACK);
@@ -414,35 +429,67 @@ public class ChessGameFrame extends JFrame {
                 button9.setForeground(Color.BLACK);
                 button10.setForeground(Color.BLACK);
                 loadwrong.setForeground(Color.RED);
-                ImageIcon icon=new ImageIcon("./images/bb.png");
+                ImageIcon icon = new ImageIcon("./images/bb.png");
                 im.setIcon(icon);
 //        icon.setImage(icon.getImage().getScaledInstance(1000,750 , Image.SCALE_DEFAULT));
                 im.setHorizontalAlignment(SwingConstants.CENTER);
-                im.setSize(WIDTH,HEIGHT);
+                im.setSize(WIDTH, HEIGHT);
                 im.setOpaque(true);
                 add(im);
                 this.repaint();
-            }});
+            }
+        });
 
     }
+
     /**
      * 在游戏面板中添加棋盘
      */
+//    java.util.Timer timer = new Timer();
     private void addChessboard() {
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
-        chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE,8,true));
+        chessboard.setBorder(BorderFactory.createLineBorder(Color.BLUE, 8, true));
         gameController = new GameController(chessboard);
-        chessboard.setBounds(200, 75,getHEIGHT()*4/5,getHEIGHT()*4/5);
-       chessboard.setChessGameFrame(this);
+        chessboard.setBounds(200, 75, getHEIGHT() * 4 / 5, getHEIGHT() * 4 / 5);
+        chessboard.setChessGameFrame(this);
         add(chessboard);
+        Timer1.setLocation(0,0);
+        Timer1.setSize(200,60);
+        Timer1.setFont(new Font("ink free",Font.BOLD,30));
+        Timer1.setForeground(Color.BLACK);
+        add(Timer1);
+        setVisible(true);
+        java.util.Timer timer=new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+
+            public void run () {
+
+                Timer1.setText("Time left: " + time2);
+                time2--;
+
+                if (time2 < 0) {
+
+                    Timer1.setText("Time Over");
+                    changelabel();
+                    chessboard.swapColor();
+                    time2 = 10;
+                }
+            }
+        },0,1000);
+
+
+}
+
+    public void setTime2(int i) {
+        time2 = i;
+
     }
-//
+
+
+
     /**
      * 在游戏面板中添加标签
      */
-
-
-
 
 
     /**
@@ -450,9 +497,7 @@ public class ChessGameFrame extends JFrame {
      */
 
 
-
     Music audioPlayWave1 = new Music("doudizhu.wav");// 开音乐 音樂名
-
 
 
 //    private void addStopMusicButton() {
@@ -467,10 +512,6 @@ public class ChessGameFrame extends JFrame {
 //            audioPlayWave1.stop();
 //        });
 //    }
-
-
-
-
 
 
     private void writeFiles(ArrayList<String> transfer) {
@@ -508,6 +549,7 @@ public class ChessGameFrame extends JFrame {
 
 
     }
+
     //    public void removechess() {
 //        for (int i = 0; i < 8; i++) {
 //            for (int j = 0; j < 8; j++) {
@@ -519,7 +561,7 @@ public class ChessGameFrame extends JFrame {
 //    }
     private void addloadLabel() {
         loadwrong.setText("");
-        loadwrong.setLocation(50,15);
+        loadwrong.setLocation(50, 15);
         loadwrong.setSize(1000, 40);
         loadwrong.setFont(new Font("Ink Free", Font.BOLD, 40));
         loadwrong.setForeground(Color.RED);
@@ -531,15 +573,18 @@ public class ChessGameFrame extends JFrame {
         loadwrong.setText("Wrong ChessComponent");
 
     }
+
     public static void nonextfang() {
         statusLabel.setText("no next player");
 
     }
+
     public static void noteight() {
         loadwrong.setText("not a 8*8 chessboard");
 
     }
-    public static void nottxt(){
+
+    public static void nottxt() {
         loadwrong.setText("Wrong Format");
     }
 
@@ -548,6 +593,7 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setText("White's Round");
 
     }
+
     public static void showblack() {
         statusLabel.setText("Black's Round");
 
@@ -569,7 +615,7 @@ public class ChessGameFrame extends JFrame {
         return chessboard;
     }
 
-    private void addFileChooser(){
+    private void addFileChooser() {
         button7.setLocation(10, 370);
         button7.setSize(200, 40);
         button7.setFont(new Font("Ink Free", Font.BOLD, 35));
@@ -579,10 +625,10 @@ public class ChessGameFrame extends JFrame {
         add(button7);
         button7.addActionListener(e -> {
             // TODO Auto-generated method stub
-            JFileChooser jfc=new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
-            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );
+            JFileChooser jfc = new JFileChooser("C:\\Users\\20699\\Documents\\Tencent Files\\2069958859\\FileRecv\\proj(2)");
+            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             jfc.showDialog(new JLabel(), "选择");
-            file=jfc.getSelectedFile();
+            file = jfc.getSelectedFile();
             gameController.loadGameFromFile(file.getAbsolutePath());
         });
     }

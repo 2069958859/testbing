@@ -9,7 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="df82d08c-7cfc-4fba-9f0e-a35dc22e4f98" name="Changes" comment="libing" />
+    <list default="true" id="df82d08c-7cfc-4fba-9f0e-a35dc22e4f98" name="Changes" comment="libing">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chess_jar/chess.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chess_jar/chess.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess/Music/Sound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/Music/Sound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess/model/ChessComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/model/ChessComponent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess/view/ChessGameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/view/ChessGameFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess/view/Chessboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/view/Chessboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chess/view/MyRunable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chess/view/MyRunable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Music/Sound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Music/Sound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ChessComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ChessComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ChessGameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ChessGameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Chessboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Chessboard.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +68,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/view" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -64,17 +76,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\20699\Documents\Tencent Files\2069958859\FileRecv\proj(2)\src\view" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/view" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="C:\Users\20699\IdeaProjects\chess" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\20699\Documents\Tencent Files\2069958859\FileRecv\proj(2)\images" />
       <recent name="C:\Users\20699\Documents\Tencent Files\2069958859\FileRecv\proj(2)\yinxiao" />
       <recent name="C:\Users\20699\Documents\Tencent Files\2069958859\FileRecv\proj(2)\src\Music" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="C:\Users\20699\IdeaProjects\chess\images" />
     </key>
   </component>
   <component name="RunManager">
@@ -149,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653209949714</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="libing">
+      <created>1653210552676</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1653210552676</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,7 +192,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/view/ChessGameFrame.java</url>
-          <line>257</line>
+          <line>268</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
