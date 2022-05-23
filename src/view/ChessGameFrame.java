@@ -38,13 +38,13 @@ public class ChessGameFrame extends JFrame {
         return HEIGHT;
     }
 
+
     //    public final Dimension FRAME_SIZE ;
     protected final int WIDTH;
     protected static int HEIGHT;
     public final int CHESSBOARD_SIZE;
     private Chessboard chessboard;
     public static boolean isSkin;
-
     public static boolean isChanged;
     private GameController gameController;
     private final ChessComponent[][] chessComponents = new ChessComponent[8][8];
