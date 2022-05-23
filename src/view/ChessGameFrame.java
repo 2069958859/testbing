@@ -268,13 +268,6 @@ public class ChessGameFrame extends JFrame {
             Thread newTry = new Thread(new MyRunable(this));
             newTry.start();
 
-//           if(currentColor==ChessColor.WHITE){
-//               showwhite();
-//           }
-//           else {
-//               showblack();
-//           }
-//           repaint();
         });
     }
 
@@ -324,7 +317,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     public static void dead(String warning) {
-        JOptionPane j = new JOptionPane();
+//        JOptionPane j = new JOptionPane();
         ImageIcon icon = new ImageIcon("./images/aniya.png");
         JOptionPane.showMessageDialog(null, warning, "Winner", JOptionPane.PLAIN_MESSAGE, icon);
 
@@ -371,11 +364,6 @@ public class ChessGameFrame extends JFrame {
             System.exit(0);
             System.exit(0);
         }
-//        if(result==0){
-//            isClose=true;
-//        }else if(result==1){
-//            isClose=false;
-//        }
     }
 
     private void changeSkin() {
@@ -516,28 +504,20 @@ public class ChessGameFrame extends JFrame {
 
     private void writeFiles(ArrayList<String> transfer) {
         int num = 1;
-        FileWriter writer = null;
+        FileWriter writer;
         String path = "save" + num + ".txt";
         try {
             File file = new File(path);
-//            System.out.println("01");
             while (file.exists()) {
                 num++;
-                path = new String("save" + num + ".txt");
+                path = "save" + num + ".txt";
                 file = new File(path);
-//                System.out.println("02");
             }
             file.createNewFile();
             writer = new FileWriter(path);
-//            System.out.println("03");
-//            System.out.println("size");
             System.out.println(transfer.size());
-            for (int i = 0; i < transfer.size(); i++) {
-
-                String str = transfer.get(i).toString() + "\n";
-
-                System.out.println(transfer.size());
-//                System.out.println("04");
+            for (String s : transfer) {
+                String str = s + "\n";
                 writer.write(str);
 
             }
@@ -550,15 +530,6 @@ public class ChessGameFrame extends JFrame {
 
     }
 
-    //    public void removechess() {
-//        for (int i = 0; i < 8; i++) {
-//            for (int j = 0; j < 8; j++) {
-//                if (chessComponent[i][j] != null) {
-//                    remove(chessComponent[i][j]);
-//                }
-//            }
-//        }
-//    }
     private void addloadLabel() {
         loadwrong.setText("");
         loadwrong.setLocation(50, 15);
@@ -600,16 +571,6 @@ public class ChessGameFrame extends JFrame {
     }
 
 
-//    public void addFrameButton(){
-//        JButton frame=new JButton("frame");
-//        frame.addActionListener(e -> {
-//           this.chessboard.getBord
-//
-//        });
-//        frame.setLocation(HEIGHT, HEIGHT / 10 + 540);
-//        frame.setSize(200, 40);
-//        frame.setFont(new Font("Rockwell", Font.BOLD, 20));
-//        add(frame);}
 
     public Chessboard getChessboard() {
         return chessboard;
