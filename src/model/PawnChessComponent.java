@@ -96,42 +96,55 @@ public class PawnChessComponent extends ChessComponent {
 
         if (color.getName() == "White" && source.getX() == 6) {
             int col = source.getY();
-            if ((destination.getX() - source.getX() == -1 || destination.getX() - source.getX() == -2) && destination.getY() == source.getY()) {
-                for (int row = destination.getX(); row <= source.getX(); row++) {
-                    if ((chessComponents[row][col] instanceof EmptySlotComponent)) {
-                        return true;
-                    }
+            if (destination.getX() - source.getX() == -1 && destination.getY() == source.getY()) {
+                if ((chessComponents[destination.getX()][col] instanceof EmptySlotComponent)) {
+                    return true;
+                }
+
+            }
+            if (destination.getX() - source.getX() == -2 && destination.getY() == source.getY()) {
+                if ((chessComponents[destination.getX()][col] instanceof EmptySlotComponent) && (chessComponents[destination.getX() + 1][col] instanceof EmptySlotComponent)) {
+                    return true;
                 }
             }
-        }  if (color.getName() == "Black" && source.getX() == 1) {
+
+        }
+        if (color.getName() == "Black" && source.getX() == 1) {
             int col = source.getY();
-            if ((destination.getX() - source.getX() == 1 || destination.getX() - source.getX() == 2) && destination.getY() == source.getY()) {
-                for (int row = Math.min(source.getX(), destination.getX()) + 1;
-                     row <= Math.max(source.getX(), destination.getX()); row++) {
-                    if ((chessComponents[row][col] instanceof EmptySlotComponent)) {
-                        return true;
-                    }
+            if ((destination.getX() - source.getX() == 1) && destination.getY() == source.getY()) {
+                if ((chessComponents[destination.getX()][col] instanceof EmptySlotComponent)) {
+                    return true;
                 }
             }
 
-        }  if (destination.getX() - source.getX() == 1 && color.getName() == "Black" && destination.getY() == source.getY() && chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent) {
+            if (destination.getX() - source.getX() == 2 && destination.getY() == source.getY()) {
+                if ((chessComponents[destination.getX()][col] instanceof EmptySlotComponent) && (chessComponents[destination.getX() - 1][col] instanceof EmptySlotComponent)) {
+                    return true;
+                }
+            }
+
+
+        }
+        if (destination.getX() - source.getX() == 1 && color.getName() == "Black" && destination.getY() == source.getY() && chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent) {
 
 
             return true;
 
-        } if (source.getX() - destination.getX() == 1 && color.getName() == "White" && destination.getY() == source.getY() && chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent) {
+        }
+        if (source.getX() - destination.getX() == 1 && color.getName() == "White" && destination.getY() == source.getY() && chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent) {
             return true;
 
-        }  if (destination.getX() - source.getX() == 1 && Math.abs(destination.getY() - source.getY()) == 1 && color.getName() == "Black" && !(chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent)) {
+        }
+        if (destination.getX() - source.getX() == 1 && Math.abs(destination.getY() - source.getY()) == 1 && color.getName() == "Black" && !(chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent)) {
             return true;
-        }  if (Math.abs(source.getY() - destination.getY()) == 1 && source.getX() - destination.getX() == 1 && color.getName() == "White" && !(chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent)) {
+        }
+        if (Math.abs(source.getY() - destination.getY()) == 1 && source.getX() - destination.getX() == 1 && color.getName() == "White" && !(chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent)) {
             return true;
         }
 
-            return false;
+        return false;
 
     }
-
 
     /**
      * 注意这个方法，每当窗体受到了形状的变化，或者是通知要进行绘图的时候，就会调用这个方法进行画图。
