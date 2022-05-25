@@ -125,6 +125,8 @@ public class PawnChessComponent extends ChessComponent {
 
 
         }
+
+
         if (destination.getX() - source.getX() == 1 && color.getName() == "Black" && destination.getY() == source.getY() && chessComponents[destination.getX()][destination.getY()] instanceof EmptySlotComponent) {
 
 
